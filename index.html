@@ -1,0 +1,1256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0"/>
+
+<title>For You 🌸</title>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+<!-- FONT -->
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Playwrite+GB+S:ital,wght@0,100..400;1,100..400&display=swap"
+      rel="stylesheet">
+
+<style>
+
+/* ========================= */
+/* GLOBAL */
+/* ========================= */
+
+html{
+  scroll-behavior:smooth;
+  scrollbar-width:none;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+::-webkit-scrollbar{
+  display:none;
+}
+
+body{
+  overflow-x:hidden;
+  -ms-overflow-style:none;
+  min-height:100svh;
+
+  font-family:'Poppins',sans-serif;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #ffffff 0%,
+      #fff0f6 30%,
+      #ffd9e8 65%,
+      #ffc2da 100%
+    );
+}
+
+/* ========================= */
+/* CANVAS */
+/* ========================= */
+
+canvas{
+  position:absolute;
+  inset:0;
+}
+
+/* ========================= */
+/* MAIN SCENE */
+/* ========================= */
+
+.scene{
+  width:100vw;
+
+  min-height:100svh;
+
+  position:relative;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  overflow:hidden;
+}
+
+/* ========================= */
+/* HEART */
+/* ========================= */
+
+.glow-heart{
+  position:absolute;
+
+  top:40px;
+  right:40px;
+
+  font-size:90px;
+
+  color:#ff6fa5;
+
+  filter:
+    drop-shadow(0 0 15px rgba(255,182,193,.8))
+    drop-shadow(0 0 35px rgba(255,105,180,.5));
+
+  animation:heartbeat 2s infinite ease-in-out;
+
+  z-index:2;
+}
+
+@keyframes heartbeat{
+
+  0%,100%{
+    transform:scale(1);
+  }
+
+  25%{
+    transform:scale(1.1);
+  }
+
+  50%{
+    transform:scale(0.95);
+  }
+
+  75%{
+    transform:scale(1.08);
+  }
+
+}
+
+/* ========================= */
+/* TITLE */
+/* ========================= */
+
+.title{
+  position:absolute;
+
+  top:40px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  text-align:center;
+
+  z-index:5;
+}
+
+.title h1{
+  font-size:40px;
+  font-weight:700;
+
+  letter-spacing:3px;
+
+  color:#ff4f8b;
+
+  text-shadow:
+    0 0 20px rgba(255,182,193,.6);
+}
+
+.title p{
+  margin-top:10px;
+
+  font-size:15px;
+
+  letter-spacing:2px;
+
+  color:#ff78a8;
+}
+
+/* ========================= */
+/* FLOWER WRAPPER */
+/* ========================= */
+
+.flower-wrapper{
+  position:relative;
+
+  width:500px;
+  height:700px;
+}
+
+/* ========================= */
+/* GROUND */
+/* ========================= */
+
+.ground{
+  position:absolute;
+
+  bottom:-120px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:650px;
+  height:250px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(circle,#ff9ec4 0%, #ff5fa2 70%);
+
+  filter:blur(10px);
+
+  opacity:.55;
+
+  z-index:1;
+}
+
+/* ========================= */
+/* STEM */
+/* ========================= */
+
+.stem{
+  position:absolute;
+
+  bottom:100px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:14px;
+  height:340px;
+
+  border-radius:999px;
+
+  background:
+    linear-gradient(to top,#166534,#22c55e);
+
+  box-shadow:
+    0 0 20px rgba(34,197,94,.45);
+
+  transform-origin:bottom;
+
+  z-index:2;
+}
+
+/* ========================= */
+/* LEAF */
+/* ========================= */
+
+.leaf{
+  position:absolute;
+
+  width:120px;
+  height:70px;
+
+  background:
+    linear-gradient(135deg,#22c55e,#15803d);
+
+  border-radius:100% 0 100% 0;
+
+  filter:
+    drop-shadow(0 0 10px rgba(34,197,94,.4));
+
+  opacity:0;
+
+  z-index:3;
+}
+
+.leaf.left{
+  left:115px;
+  bottom:180px;
+
+  transform:
+    rotate(-28deg) scale(0);
+}
+
+.leaf.right{
+  right:115px;
+  bottom:260px;
+
+  transform:
+    rotate(152deg) scale(0);
+}
+
+/* ========================= */
+/* FLOWER */
+/* ========================= */
+
+.flower{
+  position:absolute;
+
+  top:80px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:300px;
+  height:300px;
+
+  z-index:5;
+}
+
+/* ========================= */
+/* PETAL WRAPPER */
+/* ========================= */
+
+.petal-wrap{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  width:0;
+  height:0;
+}
+
+/* ========================= */
+/* PETALS */
+/* ========================= */
+
+.petal{
+  width:120px;
+  height:150px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(
+      circle at 30% 30%,
+      #fff5fa,
+      #ff9fc7 55%,
+      #ff4f8b 100%
+    );
+
+  box-shadow:
+    0 0 30px rgba(255,105,180,.4),
+    inset 0 0 25px rgba(255,255,255,.5);
+
+  transform:
+    translate(-50%, -50%)
+    translateY(-90px);
+
+  opacity:0;
+}
+
+/* ========================= */
+/* FLOWER CENTER */
+/* ========================= */
+
+.center{
+  position:absolute;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  width:95px;
+  height:95px;
+
+  border-radius:50%;
+
+  background:
+    radial-gradient(circle,#fff3a3,#ffb703);
+
+  z-index:10;
+
+  box-shadow:
+    0 0 25px #fff3a3,
+    0 0 90px #ffb703;
+}
+
+/* ========================= */
+/* SPARKLES */
+/* ========================= */
+
+.sparkle{
+  position:absolute;
+
+  color:#ff6fa5;
+
+  font-size:7px;
+
+  opacity:.8;
+}
+
+/* ========================= */
+/* SCROLL BUTTON */
+/* ========================= */
+
+.scroll-down{
+  position:absolute;
+
+  bottom:45px;
+  left:50%;
+
+  transform:translateX(-50%);
+
+  z-index:10;
+}
+
+.scroll-down a{
+  text-decoration:none;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:6px;
+
+  color:#ff4f8b;
+
+  font-weight:600;
+  font-size:15px;
+
+  padding:14px 26px;
+
+  border-radius:999px;
+
+  background:rgba(255,255,255,.45);
+
+  backdrop-filter:blur(10px);
+
+  box-shadow:
+    0 8px 25px rgba(255,105,180,.15);
+
+  transition:.3s;
+
+  cursor:pointer;
+}
+
+.scroll-down a:hover{
+  transform:translateY(-4px);
+
+  background:rgba(255,255,255,.7);
+}
+
+.arrow{
+  font-size:22px;
+
+  animation:bounce 1.5s infinite;
+}
+
+@keyframes bounce{
+
+  0%,100%{
+    transform:translateY(0);
+  }
+
+  50%{
+    transform:translateY(6px);
+  }
+
+}
+
+/* ========================= */
+/* NEXT SECTION */
+/* ========================= */
+
+.next-section{
+  min-height:100svh;
+
+  position:relative;
+
+  overflow:hidden;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  text-align:center;
+
+  padding:80px 20px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #ffc2da 0%,
+      #ffe4ef 40%,
+      #fff7fb 100%
+    );
+}
+
+.next-section::before{
+  content:"";
+
+  position:absolute;
+
+  width:600px;
+  height:600px;
+
+  background:
+    radial-gradient(circle,
+      rgba(255,105,180,.25),
+      transparent 70%
+    );
+
+  top:-150px;
+  left:-150px;
+
+  filter:blur(40px);
+}
+
+.next-section::after{
+  content:"";
+
+  position:absolute;
+
+  width:500px;
+  height:500px;
+
+  background:
+    radial-gradient(circle,
+      rgba(255,182,193,.35),
+      transparent 70%
+    );
+
+  bottom:-150px;
+  right:-150px;
+
+  filter:blur(50px);
+}
+
+.next-content{
+  position:relative;
+
+  z-index:2;
+
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  gap:28px;
+
+  padding:50px 35px;
+
+  border-radius:35px;
+
+  background:rgba(255,255,255,.28);
+
+  backdrop-filter:blur(16px);
+
+  border:1px solid rgba(255,255,255,.4);
+
+  box-shadow:
+    0 15px 40px rgba(255,105,180,.15),
+    inset 0 0 20px rgba(255,255,255,.2);
+
+  max-width:850px;
+}
+
+.next-section h2{
+  font-family:"Playwrite GB S", cursive;
+
+  font-size:44px;
+  font-weight:300;
+
+  line-height:1.4;
+
+  background:
+    linear-gradient(
+      90deg,
+      #ff4f8b,
+      #ff79ac,
+      #ff4f8b
+    );
+
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.next-section img{
+  width:30rem;
+  height:auto;
+
+  object-fit:contain;
+
+  filter:
+    drop-shadow(0 10px 25px rgba(255,105,180,.25));
+
+  animation:floatBouquet 4s ease-in-out infinite;
+}
+
+@keyframes floatBouquet{
+
+  0%,100%{
+    transform:translateY(0px);
+  }
+
+  50%{
+    transform:translateY(-12px);
+  }
+
+}
+
+.next-section p{
+  max-width:650px;
+
+  line-height:1.9;
+
+  padding:22px 30px;
+
+  border-radius:22px;
+
+  background:
+    rgba(255,255,255,.45);
+
+  backdrop-filter:blur(10px);
+
+  color:#c2185b;
+
+  font-size:18px;
+  font-weight:500;
+
+  box-shadow:
+    0 8px 30px rgba(255,105,180,.12);
+
+  border:
+    1px solid rgba(255,255,255,.35);
+
+  cursor:pointer;
+
+  transition:.35s;
+}
+
+.next-section p:hover{
+  transform:translateY(-4px);
+}
+
+/* ========================= */
+/* LETTER MODAL */
+/* ========================= */
+
+.letter-modal{
+  position:fixed;
+
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:99999;
+
+  opacity:0;
+  pointer-events:none;
+
+  transition:.4s ease;
+}
+
+.letter-modal.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.letter-overlay{
+  position:absolute;
+  inset:0;
+
+  background:rgba(0,0,0,.65);
+
+  backdrop-filter:blur(8px);
+}
+
+.letter-content{
+  position:relative;
+
+  z-index:2;
+
+  animation:popup .45s ease;
+
+  max-width:90%;
+  max-height:90%;
+}
+
+.letter-content img{
+  width:min(850px,90vw);
+  margin-left: -10px;
+  max-height:85vh;
+
+  object-fit:contain;
+
+  border-radius:20px;
+}
+
+.close-btn{
+  position:absolute;
+
+  top:-18px;
+  right:-18px;
+
+  width:45px;
+  height:45px;
+
+  border:none;
+  outline:none;
+
+  border-radius:50%;
+
+  background:#ff4f8b;
+
+  color:white;
+
+  font-size:20px;
+  font-weight:bold;
+
+  cursor:pointer;
+
+  box-shadow:
+    0 10px 25px rgba(255,105,180,.4);
+
+  transition:.25s;
+
+  z-index:5;
+}
+
+.close-btn:hover{
+  transform:scale(1.1) rotate(90deg);
+
+  background:#ff2f74;
+}
+
+@keyframes popup{
+
+  from{
+    transform:scale(.7);
+    opacity:0;
+  }
+
+  to{
+    transform:scale(1);
+    opacity:1;
+  }
+
+}
+
+/* ========================= */
+/* MOBILE */
+/* ========================= */
+
+@media(max-width:768px){
+
+  .glow-heart{
+    font-size:65px;
+
+    top:25px;
+    right:18px;
+  }
+
+  .title{
+    width:100%;
+
+    padding:0 20px;
+  }
+
+  .title h1{
+    font-size:25px;
+
+    line-height:1.2;
+  }
+
+  .title p{
+    font-size:11px;
+  }
+
+  .flower-wrapper{
+    transform:scale(.72);
+  }
+
+  .flower{
+    top:140px;
+  }
+
+  .ground{
+    bottom:-250px;
+
+    width:700px;
+    height:370px;
+  }
+
+  .stem{
+    height:390px;
+  }
+
+  .leaf{
+    width:105px;
+    height:60px;
+  }
+
+  .leaf.left{
+    left:95px;
+    bottom:150px;
+  }
+
+  .leaf.right{
+    right:95px;
+    bottom:195px;
+  }
+
+  .scroll-down{
+    bottom:55px;
+  }
+
+  .scroll-down a{
+    font-size:13px;
+
+    padding:12px 22px;
+  }
+
+  .next-section{
+    padding:80px 18px;
+  }
+
+  .next-content{
+    padding:35px 20px;
+  }
+
+  .next-section h2{
+    font-size:30px;
+
+    line-height:1.5;
+  }
+
+  .next-section img{
+    width:20rem;
+  }
+
+  .next-section p{
+    font-size:15px;
+
+    line-height:1.8;
+  }
+
+  .letter-content img{
+    width:95vw;
+
+    max-height:80vh;
+  }
+
+  .close-btn{
+    width:40px;
+    height:40px;
+
+    top:-12px;
+    right:-12px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="stars"></canvas>
+
+<!-- HERO SECTION -->
+
+<div class="scene">
+
+  <div class="glow-heart">
+    ❤
+  </div>
+
+  <div class="title">
+
+    <h1>
+      This website was made for someone special, named
+    </h1>
+
+    <p style="font-family:Playwrite GB S;">
+      Ranita Andini
+    </p>
+
+  </div>
+
+  <!-- FLOWER -->
+
+  <div class="flower-wrapper">
+
+    <div class="flower">
+
+      <div class="petal-wrap" style="transform:rotate(0deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(45deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(90deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(135deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(180deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(225deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(270deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="petal-wrap" style="transform:rotate(315deg)">
+        <div class="petal"></div>
+      </div>
+
+      <div class="center"></div>
+
+    </div>
+
+    <div class="leaf left"></div>
+    <div class="leaf right"></div>
+
+    <div class="stem"></div>
+
+    <div class="ground"></div>
+
+  </div>
+
+  <!-- BUTTON -->
+
+  <div class="scroll-down">
+
+    <a id="scrollBtn">
+
+      <span>Read My Message</span>
+
+      <div class="arrow">↓</div>
+
+    </a>
+
+  </div>
+
+</div>
+
+<!-- NEXT SECTION -->
+
+<section id="next-section"
+         class="next-section">
+
+  <div class="next-content">
+
+    <h2>
+      A Bouquet of Flowers by your name
+    </h2>
+
+    <img src="./bouquet.png"
+         alt="bouquet">
+
+    <p id="openLetter">
+      💌 Touch to open my letter...
+    </p>
+
+  </div>
+
+</section>
+
+<!-- LETTER MODAL -->
+
+<div class="letter-modal"
+     id="letterModal">
+
+  <div class="letter-overlay"
+       id="closeLetter"></div>
+
+  <div class="letter-content">
+
+    <button class="close-btn"
+            id="closeBtn">
+
+      ✕
+
+    </button>
+
+    <img src="./letter.png"
+         alt="letter">
+
+  </div>
+
+</div>
+
+<script>
+
+/* ========================= */
+/* STARS */
+/* ========================= */
+
+const canvas =
+  document.getElementById("stars");
+
+const ctx =
+  canvas.getContext("2d");
+
+function resizeCanvas(){
+
+  canvas.width =
+    window.innerWidth;
+
+  canvas.height =
+    window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener(
+  "resize",
+  resizeCanvas
+);
+
+const stars = [];
+
+for(let i=0;i<180;i++){
+
+  stars.push({
+
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2.5,
+    o:Math.random()
+
+  });
+
+}
+
+function animateStars(){
+
+  ctx.clearRect(
+    0,
+    0,
+    canvas.width,
+    canvas.height
+  );
+
+  stars.forEach(star=>{
+
+    ctx.beginPath();
+
+    ctx.arc(
+      star.x,
+      star.y,
+      star.r,
+      0,
+      Math.PI*2
+    );
+
+    ctx.fillStyle =
+      `rgba(255,255,255,${star.o})`;
+
+    ctx.fill();
+
+    star.o +=
+      (Math.random()-.5)*0.03;
+
+    if(star.o<0) star.o=0;
+    if(star.o>1) star.o=1;
+
+  });
+
+  requestAnimationFrame(
+    animateStars
+  );
+
+}
+
+animateStars();
+
+/* ========================= */
+/* GSAP */
+/* ========================= */
+
+gsap.from(".stem",{
+
+  scaleY:0,
+  duration:2,
+  ease:"power4.out"
+
+});
+
+gsap.to(".leaf",{
+
+  opacity:1,
+  scale:1,
+  duration:1.3,
+  stagger:.2,
+  delay:1,
+  ease:"back.out(2)"
+
+});
+
+gsap.fromTo(
+
+  ".petal",
+
+  {
+    opacity:0,
+    scale:0
+  },
+
+  {
+    opacity:1,
+    scale:1,
+    duration:1.3,
+    stagger:.12,
+    delay:1.8,
+    ease:"elastic.out(1,0.5)"
+  }
+
+);
+
+gsap.from(".center",{
+
+  scale:0,
+  duration:1,
+  delay:2.5,
+  ease:"back.out(4)"
+
+});
+
+gsap.to(".center",{
+
+  boxShadow:
+    "0 0 50px #fff3a3, 0 0 140px #ffb703",
+
+  repeat:-1,
+  yoyo:true,
+  duration:1.5
+
+});
+
+gsap.to(".flower-wrapper",{
+
+  y:-12,
+  duration:2.5,
+  repeat:-1,
+  yoyo:true,
+  ease:"sine.inOut"
+
+});
+
+/* ========================= */
+/* SPARKLES */
+/* ========================= */
+
+function sparkle(){
+
+  const s =
+    document.createElement("div");
+
+  s.classList.add("sparkle");
+
+  s.innerHTML = "❤";
+
+  s.style.left =
+    Math.random()*innerWidth+"px";
+
+  s.style.top =
+    innerHeight+"px";
+
+  document.body.appendChild(s);
+
+  gsap.to(s,{
+
+    y:-innerHeight-200,
+
+    x:`+=${Math.random()*200-100}`,
+
+    opacity:0,
+
+    scale:Math.random()*2+1,
+
+    duration:4+Math.random()*3,
+
+    ease:"none",
+
+    onComplete:()=>s.remove()
+
+  });
+
+}
+
+setInterval(sparkle,250);
+
+/* ========================= */
+/* SCROLL FIX */
+/* ========================= */
+
+document
+  .getElementById("scrollBtn")
+  .addEventListener("click",()=>{
+
+    const nextSection =
+      document.getElementById("next-section");
+
+    window.scrollTo({
+
+      top:nextSection.offsetTop,
+
+      behavior:"smooth"
+
+    });
+
+});
+
+/* ========================= */
+/* LETTER MODAL */
+/* ========================= */
+
+const letterModal =
+  document.getElementById("letterModal");
+
+const openLetter =
+  document.getElementById("openLetter");
+
+const closeLetter =
+  document.getElementById("closeLetter");
+
+const closeBtn =
+  document.getElementById("closeBtn");
+
+/* OPEN */
+
+openLetter.addEventListener("click",()=>{
+
+  letterModal.classList.add("show");
+
+  document.body.style.overflow = "hidden";
+
+});
+
+/* CLOSE */
+
+function closeModal(){
+
+  letterModal.classList.remove("show");
+
+  document.body.style.overflow = "auto";
+
+}
+
+closeLetter.addEventListener(
+  "click",
+  closeModal
+);
+
+closeBtn.addEventListener(
+  "click",
+  closeModal
+);
+
+</script>
+
+</body>
+</html>
