@@ -1025,48 +1025,6 @@ for(let i=0;i<180;i++){
 
 }
 
-function animateStars(){
-
-  ctx.clearRect(
-    0,
-    0,
-    canvas.width,
-    canvas.height
-  );
-
-  stars.forEach(star=>{
-
-    ctx.beginPath();
-
-    ctx.arc(
-      star.x,
-      star.y,
-      star.r,
-      0,
-      Math.PI*2
-    );
-
-    ctx.fillStyle =
-      `rgba(255,255,255,${star.o})`;
-
-    ctx.fill();
-
-    star.o +=
-      (Math.random()-.5)*0.03;
-
-    if(star.o<0) star.o=0;
-    if(star.o>1) star.o=1;
-
-  });
-
-  requestAnimationFrame(
-    animateStars
-  );
-
-}
-
-animateStars();
-
 /* ========================= */
 /* GSAP */
 /* ========================= */
