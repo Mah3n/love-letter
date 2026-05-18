@@ -75,7 +75,6 @@ canvas{
 
 .scene{
   width:100vw;
-
   min-height:100svh;
 
   position:relative;
@@ -374,6 +373,8 @@ canvas{
   font-size:7px;
 
   opacity:.8;
+
+  will-change:transform, opacity;
 }
 
 /* ========================= */
@@ -418,12 +419,6 @@ canvas{
   transition:.3s;
 
   cursor:pointer;
-}
-
-.scroll-down a:hover{
-  transform:translateY(-4px);
-
-  background:rgba(255,255,255,.7);
 }
 
 .arrow{
@@ -472,46 +467,6 @@ canvas{
     );
 }
 
-.next-section::before{
-  content:"";
-
-  position:absolute;
-
-  width:600px;
-  height:600px;
-
-  background:
-    radial-gradient(circle,
-      rgba(255,105,180,.25),
-      transparent 70%
-    );
-
-  top:-150px;
-  left:-150px;
-
-  filter:blur(40px);
-}
-
-.next-section::after{
-  content:"";
-
-  position:absolute;
-
-  width:500px;
-  height:500px;
-
-  background:
-    radial-gradient(circle,
-      rgba(255,182,193,.35),
-      transparent 70%
-    );
-
-  bottom:-150px;
-  right:-150px;
-
-  filter:blur(50px);
-}
-
 .next-content{
   position:relative;
 
@@ -532,10 +487,6 @@ canvas{
   backdrop-filter:blur(16px);
 
   border:1px solid rgba(255,255,255,.4);
-
-  box-shadow:
-    0 15px 40px rgba(255,105,180,.15),
-    inset 0 0 20px rgba(255,255,255,.2);
 
   max-width:850px;
 }
@@ -568,20 +519,6 @@ canvas{
 
   filter:
     drop-shadow(0 10px 25px rgba(255,105,180,.25));
-
-  animation:floatBouquet 4s ease-in-out infinite;
-}
-
-@keyframes floatBouquet{
-
-  0%,100%{
-    transform:translateY(0px);
-  }
-
-  50%{
-    transform:translateY(-12px);
-  }
-
 }
 
 .next-section p{
@@ -596,26 +533,12 @@ canvas{
   background:
     rgba(255,255,255,.45);
 
-  backdrop-filter:blur(10px);
-
   color:#c2185b;
 
   font-size:18px;
   font-weight:500;
 
-  box-shadow:
-    0 8px 30px rgba(255,105,180,.12);
-
-  border:
-    1px solid rgba(255,255,255,.35);
-
   cursor:pointer;
-
-  transition:.35s;
-}
-
-.next-section p:hover{
-  transform:translateY(-4px);
 }
 
 /* ========================= */
@@ -669,19 +592,18 @@ canvas{
 
 .letter-content img{
   width:min(850px,90vw);
-  margin-left: -10px;
+  margin-left:-10px;
+
   max-height:85vh;
 
   object-fit:contain;
-
-  border-radius:20px;
 }
 
 .close-btn{
   position:absolute;
 
-  top:-18px;
-  right:-18px;
+  top:-45px;
+  right:0;
 
   width:45px;
   height:45px;
@@ -700,18 +622,7 @@ canvas{
 
   cursor:pointer;
 
-  box-shadow:
-    0 10px 25px rgba(255,105,180,.4);
-
-  transition:.25s;
-
   z-index:5;
-}
-
-.close-btn:hover{
-  transform:scale(1.1) rotate(90deg);
-
-  background:#ff2f74;
 }
 
 @keyframes popup{
@@ -736,20 +647,17 @@ canvas{
 
   .glow-heart{
     font-size:65px;
-
     top:25px;
     right:18px;
   }
 
   .title{
     width:100%;
-
     padding:0 20px;
   }
 
   .title h1{
     font-size:25px;
-
     line-height:1.2;
   }
 
@@ -772,71 +680,18 @@ canvas{
     height:370px;
   }
 
-  .stem{
-    height:390px;
-  }
-
-  .leaf{
-    width:105px;
-    height:60px;
-  }
-
-  .leaf.left{
-    left:95px;
-    bottom:150px;
-  }
-
-  .leaf.right{
-    right:95px;
-    bottom:195px;
-  }
-
-  .scroll-down{
-    bottom:55px;
-  }
-
-  .scroll-down a{
-    font-size:13px;
-
-    padding:12px 22px;
-  }
-
-  .next-section{
-    padding:80px 18px;
-  }
-
-  .next-content{
-    padding:35px 20px;
-  }
-
-  .next-section h2{
-    font-size:30px;
-
-    line-height:1.5;
-  }
-
   .next-section img{
     width:20rem;
   }
 
-  .next-section p{
-    font-size:15px;
-
-    line-height:1.8;
-  }
-
   .letter-content img{
     width:95vw;
-
     max-height:80vh;
   }
 
   .close-btn{
-    width:40px;
-    height:40px;
-
-    top:-12px;
-    right:-12px;
+    top:-38px;
+    right:5px;
   }
 
 }
@@ -848,13 +703,9 @@ canvas{
 
 <canvas id="stars"></canvas>
 
-<!-- HERO SECTION -->
-
 <div class="scene">
 
-  <div class="glow-heart">
-    ❤
-  </div>
+  <div class="glow-heart">❤</div>
 
   <div class="title">
 
@@ -867,8 +718,6 @@ canvas{
     </p>
 
   </div>
-
-  <!-- FLOWER -->
 
   <div class="flower-wrapper">
 
@@ -919,8 +768,6 @@ canvas{
 
   </div>
 
-  <!-- BUTTON -->
-
   <div class="scroll-down">
 
     <a id="scrollBtn">
@@ -934,8 +781,6 @@ canvas{
   </div>
 
 </div>
-
-<!-- NEXT SECTION -->
 
 <section id="next-section"
          class="next-section">
@@ -956,8 +801,6 @@ canvas{
   </div>
 
 </section>
-
-<!-- LETTER MODAL -->
 
 <div class="letter-modal"
      id="letterModal">
@@ -982,48 +825,6 @@ canvas{
 </div>
 
 <script>
-
-/* ========================= */
-/* STARS */
-/* ========================= */
-
-const canvas =
-  document.getElementById("stars");
-
-const ctx =
-  canvas.getContext("2d");
-
-function resizeCanvas(){
-
-  canvas.width =
-    window.innerWidth;
-
-  canvas.height =
-    window.innerHeight;
-
-}
-
-resizeCanvas();
-
-window.addEventListener(
-  "resize",
-  resizeCanvas
-);
-
-const stars = [];
-
-for(let i=0;i<180;i++){
-
-  stars.push({
-
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2.5,
-    o:Math.random()
-
-  });
-
-}
 
 /* ========================= */
 /* GSAP */
@@ -1077,32 +878,15 @@ gsap.from(".center",{
 
 });
 
-gsap.to(".center",{
-
-  boxShadow:
-    "0 0 50px #fff3a3, 0 0 140px #ffb703",
-
-  repeat:-1,
-  yoyo:true,
-  duration:1.5
-
-});
-
-gsap.to(".flower-wrapper",{
-
-  y:-12,
-  duration:2.5,
-  repeat:-1,
-  yoyo:true,
-  ease:"sine.inOut"
-
-});
-
 /* ========================= */
 /* SPARKLES */
 /* ========================= */
 
 function sparkle(){
+
+  if(document.querySelectorAll(".sparkle").length > 12){
+    return;
+  }
 
   const s =
     document.createElement("div");
@@ -1121,15 +905,15 @@ function sparkle(){
 
   gsap.to(s,{
 
-    y:-innerHeight-200,
+    y:-innerHeight-100,
 
-    x:`+=${Math.random()*200-100}`,
+    x:`+=${Math.random()*80-40}`,
 
     opacity:0,
 
-    scale:Math.random()*2+1,
+    scale:Math.random()*0.8+0.6,
 
-    duration:4+Math.random()*3,
+    duration:3,
 
     ease:"none",
 
@@ -1139,10 +923,10 @@ function sparkle(){
 
 }
 
-setInterval(sparkle,250);
+setInterval(sparkle,900);
 
 /* ========================= */
-/* SCROLL FIX */
+/* SCROLL */
 /* ========================= */
 
 document
@@ -1178,8 +962,6 @@ const closeLetter =
 const closeBtn =
   document.getElementById("closeBtn");
 
-/* OPEN */
-
 openLetter.addEventListener("click",()=>{
 
   letterModal.classList.add("show");
@@ -1187,8 +969,6 @@ openLetter.addEventListener("click",()=>{
   document.body.style.overflow = "hidden";
 
 });
-
-/* CLOSE */
 
 function closeModal(){
 
